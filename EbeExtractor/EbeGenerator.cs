@@ -344,7 +344,7 @@ namespace EbeExtractor
             builder.AppendLine("static string[] mstrEBEColumnName = { ");
             foreach (var item in columnInfo)
             {
-                builder.AppendLine(item.Name + (item == columnInfo.Last() ? string.Empty : ","));
+                builder.AppendLine(string.Format("\"{0}\"{1}", item.Name, (item == columnInfo.Last() ? string.Empty : ",")));
             }
             builder.AppendLine("};");
 
@@ -406,7 +406,7 @@ namespace EbeExtractor
 
         private static void GetMethods(string ebeDataRowClassName, StringBuilder builder)
         {
-            builder.AppendLine($"public {ebeDataRowClassName}[] EBESelectDataRow(string v_strCriteria)");
+            builder.AppendLine($"public {ebeDataRowClassName} EBESelectDataRow(string v_strCriteria)");
             builder.AppendLine("{");
             builder.AppendLine($"{ebeDataRowClassName}[] obj{ebeDataRowClassName} = EBESelect(v_strCriteria);");
             builder.AppendLine($"return obj{ebeDataRowClassName}.Length == 1 ? obj{ebeDataRowClassName}[0] : null;");

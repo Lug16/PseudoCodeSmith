@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.dgvTables = new System.Windows.Forms.DataGridView();
+            this.Check = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Table = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Schema = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExtract = new System.Windows.Forms.Button();
             this.txtConnectionString = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -37,9 +40,6 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.Check = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Table = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Schema = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTables)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,8 +64,32 @@
             this.dgvTables.Size = new System.Drawing.Size(573, 182);
             this.dgvTables.TabIndex = 0;
             // 
+            // Check
+            // 
+            this.Check.FalseValue = "false";
+            this.Check.HeaderText = "";
+            this.Check.Name = "Check";
+            this.Check.TrueValue = "true";
+            this.Check.Width = 50;
+            // 
+            // Table
+            // 
+            this.Table.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Table.DataPropertyName = "Table_Name";
+            this.Table.HeaderText = "Table";
+            this.Table.Name = "Table";
+            // 
+            // Schema
+            // 
+            this.Schema.DataPropertyName = "TABLE_SCHEMA";
+            this.Schema.HeaderText = "Schema";
+            this.Schema.Name = "Schema";
+            this.Schema.ReadOnly = true;
+            this.Schema.Width = 70;
+            // 
             // btnExtract
             // 
+            this.btnExtract.Enabled = false;
             this.btnExtract.Location = new System.Drawing.Point(463, 283);
             this.btnExtract.Name = "btnExtract";
             this.btnExtract.Size = new System.Drawing.Size(122, 32);
@@ -88,7 +112,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(15, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(120, 17);
+            this.label1.Size = new System.Drawing.Size(112, 16);
             this.label1.TabIndex = 3;
             this.label1.Text = "Connection String";
             // 
@@ -118,7 +142,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(14, 32);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(43, 17);
+            this.label3.Size = new System.Drawing.Size(40, 16);
             this.label3.TabIndex = 8;
             this.label3.Text = "Filter:";
             // 
@@ -130,29 +154,6 @@
             this.textBox2.Size = new System.Drawing.Size(88, 22);
             this.textBox2.TabIndex = 7;
             this.textBox2.Text = "fasb";
-            // 
-            // Check
-            // 
-            this.Check.FalseValue = "false";
-            this.Check.HeaderText = "";
-            this.Check.Name = "Check";
-            this.Check.TrueValue = "true";
-            this.Check.Width = 50;
-            // 
-            // Table
-            // 
-            this.Table.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Table.DataPropertyName = "Table_Name";
-            this.Table.HeaderText = "Table";
-            this.Table.Name = "Table";
-            // 
-            // Schema
-            // 
-            this.Schema.DataPropertyName = "TABLE_SCHEMA";
-            this.Schema.HeaderText = "Schema";
-            this.Schema.Name = "Schema";
-            this.Schema.ReadOnly = true;
-            this.Schema.Width = 70;
             // 
             // Form1
             // 

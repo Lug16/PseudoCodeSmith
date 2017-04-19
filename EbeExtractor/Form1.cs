@@ -23,30 +23,45 @@ namespace EbeExtractor
 
         private void textBox1_Click(object sender, EventArgs e)
         {
-            folderBrowserDialog1.ShowDialog();
+            if (dgvTables.Rows.Count > 0)
+            {
+                folderBrowserDialog1.ShowDialog();
 
-            var location = folderBrowserDialog1.SelectedPath;
+                var location = folderBrowserDialog1.SelectedPath;
 
-            textBox1.Text = location;
+                textBox1.Text = location;
+
+                btnExtract.Enabled = true;
+            }
+            else
+            {
+                MessageBox.Show("No data to extract, please check some tables", "Action Required", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             connection = new SqlConnection(txtConnectionString.Text);
-            var dataset = new DataSet();
 
-            using (connection)
+
+            try
             {
-                var command = "SELECT TABLE_NAME, TABLE_SCHEMA FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE' and TABLE_NAME like '%fasb%' order by TABLE_SCHEMA,TABLE_NAME";
+                using (connection)
+                {
+                    var dataset = new DataSet();
+                    var command = "SELECT TABLE_NAME, TABLE_SCHEMA FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE' and TABLE_NAME like '%fasb%' order by TABLE_SCHEMA,TABLE_NAME";
 
-                var adapter = new SqlDataAdapter(command, connection);
+                    var adapter = new SqlDataAdapter(command, connection);
 
-                adapter.Fill(dataset);
+                    adapter.Fill(dataset);
+                    dgvTables.AutoGenerateColumns = false;
+                    dgvTables.DataSource = dataset;
+                }
             }
-
-            dgvTables.AutoGenerateColumns = false;
-            dgvTables.DataSource = dataset;
-
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnExtract_Click(object sender, EventArgs e)
@@ -84,8 +99,13 @@ namespace EbeExtractor
             var ebeDataViewClassName = $"ABO{className}DataViewEBE";
 
             var ebe = EbeGenerator.GenerateEbe(schema, table, ebeClassName, ebeDataRowClassName, ebeDataViewClassName, tableInfo);
-
             SaveFile(ebeClassName, ebe);
+
+            var ebeDataRow = EbeDataRowGenerator.GenerateEbe(ebeClassName, ebeDataRowClassName, tableInfo);
+            SaveFile(ebeDataRowClassName, ebeDataRow);
+
+            var ebeDataView = EbeDataViewGenerator.GenerateEbe(ebeClassName, ebeDataViewClassName, ebeDataRowClassName, tableInfo);
+            SaveFile(ebeDataViewClassName, ebeDataView);
         }
 
         private void SaveFile(string ebeClassName, string ebe)
