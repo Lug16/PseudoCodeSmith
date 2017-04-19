@@ -112,7 +112,7 @@ namespace EbeExtractor
                     case "timestamp":
                         return "base64Binary";
                     case "datetime":
-                        return "datetime";
+                        return "dateTime";
                     default:
                         throw new ApplicationException($"The type '{Type}' cannot be mapped");
                 }

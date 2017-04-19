@@ -66,28 +66,36 @@ namespace EbeExtractor
 
         private void btnExtract_Click(object sender, EventArgs e)
         {
-            connection = new SqlConnection(txtConnectionString.Text);
-            connection.Open();
-            int filesGenerated = 0;
-
-            foreach (DataGridViewRow row in dgvTables.Rows)
+            try
             {
-                var checkbox = (DataGridViewCheckBoxCell)row.Cells[0];
+                connection = new SqlConnection(txtConnectionString.Text);
+                connection.Open();
+                int filesGenerated = 0;
 
-                if (checkbox.Value == checkbox.TrueValue)
+                foreach (DataGridViewRow row in dgvTables.Rows)
                 {
-                    filesGenerated++;
-                    var table = row.Cells[1].Value.ToString();
-                    var schema = row.Cells[2].Value.ToString();
+                    var checkbox = (DataGridViewCheckBoxCell)row.Cells[0];
 
-                    GenerateFiles(schema, table, textBox1.Text);
+                    if (checkbox.Value == checkbox.TrueValue)
+                    {
+                        filesGenerated++;
+                        var table = row.Cells[1].Value.ToString();
+                        var schema = row.Cells[2].Value.ToString();
+
+                        GenerateFiles(schema, table, textBox1.Text);
+                    }
                 }
+
+                connection.Close();
+                connection.Dispose();
+
+                MessageBox.Show(string.Format("Done! {0} EBE files generated successfully", filesGenerated), "Yeah!!!", MessageBoxButtons.OK);
+
             }
-
-            connection.Close();
-            connection.Dispose();
-
-            MessageBox.Show(string.Format("Done! {0} EBE files generated successfully", filesGenerated), "Yeah!!!", MessageBoxButtons.OK);
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void GenerateFiles(string schema, string table, string location)
