@@ -49,7 +49,7 @@ namespace EbeExtractor
                 using (connection)
                 {
                     var dataset = new DataSet();
-                    var command = "SELECT TABLE_NAME, TABLE_SCHEMA FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE' and TABLE_NAME like '%fasb%' order by TABLE_SCHEMA,TABLE_NAME";
+                    var command = $"SELECT TABLE_NAME, TABLE_SCHEMA FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE' and TABLE_NAME like '%{textBox2.Text}%' order by TABLE_SCHEMA,TABLE_NAME";
 
                     var adapter = new SqlDataAdapter(command, connection);
 
