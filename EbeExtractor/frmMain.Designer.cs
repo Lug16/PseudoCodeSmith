@@ -1,6 +1,6 @@
 ﻿namespace EbeExtractor
 {
-    partial class Form1
+    partial class frmMain
     {
         /// <summary>
         /// Required designer variable.
@@ -112,7 +112,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(15, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(112, 16);
+            this.label1.Size = new System.Drawing.Size(120, 17);
             this.label1.TabIndex = 3;
             this.label1.Text = "Connection String";
             // 
@@ -142,7 +142,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(14, 32);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(40, 16);
+            this.label3.Size = new System.Drawing.Size(43, 17);
             this.label3.TabIndex = 8;
             this.label3.Text = "Filter:";
             // 
@@ -155,7 +155,7 @@
             this.textBox2.TabIndex = 7;
             this.textBox2.Text = "fasb";
             // 
-            // Form1
+            // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -169,8 +169,9 @@
             this.Controls.Add(this.btnExtract);
             this.Controls.Add(this.dgvTables);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "Form1";
+            this.Name = "frmMain";
             this.Text = "Extractor";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTables)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
